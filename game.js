@@ -863,7 +863,7 @@ function revealAllWords() {
   syncLetterButtonsFromGuess();
   renderAcceptedWords();
   updateStats();
-  setStatus("Game ended. Missed words are now shown in red.");
+  setStatus("");
 }
 
 function startNewGame() {
