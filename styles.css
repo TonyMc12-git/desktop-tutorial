@@ -1040,17 +1040,21 @@ h2 {
 
   body.revealed-mode .hero-card {
     gap: 0;
-    padding: 2px 0 0;
+    padding: 0;
     background: transparent;
     backdrop-filter: none;
     border: 0;
     box-shadow: none;
   }
 
+  body.revealed-mode .app {
+    grid-template-rows: 84px minmax(0, 1fr);
+    gap: 4px;
+  }
+
   body.revealed-mode .eyebrow,
   body.revealed-mode .progress-card,
   body.revealed-mode .current-word-panel,
-  body.revealed-mode .letter-grid,
   body.revealed-mode #submit-button,
   body.revealed-mode #clear-button,
   body.revealed-mode #give-up-button {
@@ -1059,10 +1063,14 @@ h2 {
 
   body.revealed-mode .letter-stage {
     margin-top: 0;
-    gap: 0;
-    padding: 0;
-    background: transparent;
-    border: 0;
+    gap: 4px;
+    padding: 4px 6px;
+    background: var(--lilac-panel);
+    border: 1px solid rgba(116, 88, 168, 0.16);
+    border-radius: 14px;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: start;
   }
 
   body.revealed-mode .board-actions {
@@ -1071,12 +1079,24 @@ h2 {
     width: 100%;
   }
 
+  body.revealed-mode .letter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(30px, 36px));
+    gap: 3px;
+  }
+
+  body.revealed-mode .letter-tile {
+    font-size: 1rem;
+    font-weight: 900;
+    border-radius: 8px;
+  }
+
   body.revealed-mode #new-game-button {
     display: block;
-    min-height: 30px;
+    min-height: 28px;
     padding-top: 6px;
     padding-bottom: 6px;
-    font-size: 0.8rem;
+    font-size: 0.76rem;
   }
 
   body.revealed-mode .status-line {
@@ -1086,12 +1106,12 @@ h2 {
   body.revealed-mode .play-card {
     gap: 0;
     grid-template-rows: 1fr;
-    height: calc(100dvh - 42px);
+    height: 100%;
   }
 
   @supports (height: 100svh) {
     body.revealed-mode .play-card {
-      height: calc(100svh - 42px);
+      height: 100%;
     }
   }
 
@@ -1101,7 +1121,7 @@ h2 {
     grid-auto-rows: min-content;
     align-content: start;
     align-items: start;
-    padding: 2px;
+    padding: 2px 2px 4px;
     gap: 1px;
     border-radius: 12px;
   }
@@ -1111,7 +1131,7 @@ h2 {
     width: 100%;
     min-width: 0;
     padding: 2px 1px;
-    font-size: 0.44rem;
+    font-size: 0.42rem;
     line-height: 0.92;
     border-radius: 6px;
     letter-spacing: 0;
