@@ -1,11 +1,11 @@
-const CACHE_NAME = "nine-letters-pwa-v22";
+const CACHE_NAME = "nine-letters-pwa-v23";
 
 const APP_ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./styles.css?v=20260412-purplecontrast2",
-  "./game.js?v=20260412-purplecontrast2",
+  "./styles.css?v=20260412-phoneupdate1",
+  "./game.js?v=20260412-phoneupdate1",
   "./data/preserved/size60-filtered-4to9-v2.txt?v=20260412-britishb",
   "./icons/icon.svg",
   "./icons/icon-maskable.svg"
@@ -27,6 +27,12 @@ self.addEventListener("activate", (event) => {
       );
     }).then(() => self.clients.claim())
   );
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener("fetch", (event) => {
