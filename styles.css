@@ -381,9 +381,10 @@ h2 {
 }
 
 .word-pill.missed {
-  background: rgba(217, 72, 65, 0.12);
-  color: #a6283a;
-  border-color: rgba(217, 72, 65, 0.18);
+  background: #ffd7e0;
+  color: #9f1f3b;
+  border-color: rgba(159, 31, 59, 0.28);
+  box-shadow: 0 6px 14px rgba(40, 10, 22, 0.1);
 }
 
 .empty-state {
