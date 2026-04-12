@@ -89,11 +89,13 @@ body {
 }
 
 .eyebrow {
-  margin: 0 0 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.75rem;
-  color: var(--accent);
+  margin: 0;
+  text-align: center;
+  letter-spacing: -0.03em;
+  font-family: Georgia, "Palatino Linotype", serif;
+  font-size: clamp(2.2rem, 5.6vw, 3.4rem);
+  line-height: 0.92;
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -234,6 +236,7 @@ h2 {
   width: 100%;
   display: grid;
   gap: 10px;
+  justify-items: center;
 }
 
 .board-actions {
@@ -333,6 +336,9 @@ h2 {
   gap: 6px;
   min-height: 0;
   align-content: start;
+  align-items: flex-start;
+  overflow: hidden;
+  max-height: 100%;
 }
 
 .word-pill,
@@ -349,6 +355,8 @@ h2 {
   padding: 6px 9px;
   font-size: 0.78rem;
   line-height: 1.1;
+  flex: 0 0 auto;
+  align-self: flex-start;
 }
 
 .word-pill.missed {
@@ -883,9 +891,9 @@ h2 {
   }
 
   .eyebrow {
-    margin: 0;
-    font-size: 0.62rem;
-    letter-spacing: 0.16em;
+    margin: 0 0 1px;
+    font-size: 1.7rem;
+    line-height: 0.92;
   }
 
   .board-controls {
@@ -918,13 +926,15 @@ h2 {
   }
 
   .current-word-panel {
-    min-height: 28px;
-    padding: 3px 6px;
+    min-height: 24px;
+    width: min(160px, 72%);
+    padding: 2px 6px;
   }
 
   .current-word-value {
-    font-size: clamp(0.8rem, 4.4vw, 1rem);
+    font-size: clamp(0.78rem, 4.2vw, 0.95rem);
     min-height: 0.92em;
+    text-align: center;
   }
 
   .status-line {
@@ -934,7 +944,7 @@ h2 {
 
   .play-card {
     gap: 4px;
-    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
     min-height: 0;
     height: 100%;
   }
@@ -945,27 +955,35 @@ h2 {
     min-height: 0;
     overflow: hidden;
     height: 280px;
+    display: block;
   }
 
   .accepted-words {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 4px;
     height: 100%;
+    max-height: 100%;
     align-content: start;
-    grid-auto-rows: 1fr;
+    align-items: flex-start;
+    overflow: hidden;
   }
 
   .word-pill,
   .empty-state {
-    padding: 5px 4px;
-    font-size: 0.61rem;
-    border-radius: 9px;
+    padding: 5px 6px;
+    font-size: 0.68rem;
+    border-radius: 999px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.08;
+  }
+
+  .word-pill {
+    flex: 0 0 auto;
+    align-self: flex-start;
   }
 
   .progress-card {
