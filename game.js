@@ -1,4 +1,4 @@
-const dictionaryTier = "50";
+const dictionaryTier = "60";
 const minPuzzleWordCount = 18;
 const maxPuzzleWordCount = 50;
 
@@ -10,6 +10,10 @@ const sourceConfig = {
   "50": {
     path: "data/preserved/size50-filtered-4to9-v2.txt?v=20260412-britishb",
     label: "SCOWL British Oxford size 50, preserved filtered 4-9 list"
+  },
+  "60": {
+    path: "data/preserved/size60-filtered-4to9-v2.txt?v=20260412-britishb",
+    label: "SCOWL British Oxford size 60, preserved filtered 4-9 list"
   }
 };
 
