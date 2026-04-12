@@ -549,7 +549,7 @@ function handleRejectedWord(word, verdict) {
   }
 
   if (verdict.code === "missing" && state.missedSet.has(word)) {
-    showFeedback("clown", "", "Lol you keep trying that same word - still no :)");
+    showFeedback("clown", "", "Lol you keep trying that same word - still no 😂");
     return;
   }
 
@@ -563,6 +563,7 @@ function handleRejectedWord(word, verdict) {
 }
 
 function showFeedback(theme, title, copy) {
+  setStatus("");
   feedbackModalEl.className = `feedback-modal show theme-${theme}`;
   feedbackModalEl.setAttribute("aria-hidden", "false");
   feedbackArtEl.innerHTML = buildFeedbackArt(theme);
