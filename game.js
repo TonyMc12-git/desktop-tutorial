@@ -347,6 +347,22 @@ function queueCelebration(celebration) {
   }
 }
 
+function finalizeCelebrationState(celebration) {
+  if (celebration.lockAfter) {
+    state.currentGuess = "";
+    state.selectedTileIds = [];
+    state.isRevealed = true;
+    renderCurrentGuess();
+    syncLetterButtonsFromGuess();
+    renderAcceptedWords();
+    updateStats();
+    setStatus("");
+  }
+
+  state.isCelebrationActive = false;
+  showNextCelebration();
+}
+
 function showNextCelebration() {
   const celebration = state.celebrationQueue.shift();
 
@@ -390,26 +406,30 @@ function showNextCelebration() {
     <strong class="celebration-title">${celebration.title}</strong>
     <span class="celebration-message">${celebration.message}</span>
   `;
-  celebrationBannerEl.className = `celebration-banner show tone-${celebration.tone}`;
+  celebrationBannerEl.className = `celebration-banner show tone-${celebration.tone}${celebration.requireDismiss ? " dismissible" : ""}`;
+
+  if (celebration.requireDismiss) {
+    const actions = document.createElement("div");
+    actions.className = "celebration-actions";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "primary-button";
+    button.textContent = "OK";
+    button.addEventListener("click", () => {
+      celebrationBannerEl.classList.remove("show");
+      window.setTimeout(() => finalizeCelebrationState(celebration), 260);
+    }, { once: true });
+    actions.appendChild(button);
+    celebrationBannerEl.appendChild(actions);
+    return;
+  }
 
   window.clearTimeout(showNextCelebration.timeoutId);
   showNextCelebration.timeoutId = window.setTimeout(() => {
     celebrationBannerEl.classList.remove("show");
 
     window.setTimeout(() => {
-      if (celebration.lockAfter) {
-        state.currentGuess = "";
-        state.selectedTileIds = [];
-        state.isRevealed = true;
-        renderCurrentGuess();
-        syncLetterButtonsFromGuess();
-        renderAcceptedWords();
-        updateStats();
-        setStatus("");
-      }
-
-      state.isCelebrationActive = false;
-      showNextCelebration();
+      finalizeCelebrationState(celebration);
     }, 260);
   }, celebration.duration || 2600);
 }
@@ -471,6 +491,7 @@ function buildMilestones(total) {
         kicker: "Perfect Finish",
         title: "You found ALL the words!! 🎉😄",
         message: "🎊😊",
+        requireDismiss: true,
         duration: 4200,
         lockAfter: true
       }

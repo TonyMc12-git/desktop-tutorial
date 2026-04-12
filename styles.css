@@ -426,10 +426,22 @@ h2 {
   opacity: 1;
 }
 
+.celebration-banner.dismissible {
+  pointer-events: auto;
+}
+
 .celebration-kicker,
 .celebration-title,
 .celebration-message {
   display: block;
+}
+
+.celebration-actions {
+  position: relative;
+  z-index: 2;
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
 }
 
 .celebration-kicker {
