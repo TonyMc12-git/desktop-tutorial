@@ -974,10 +974,10 @@ h2 {
   }
 
   .letter-tile {
-    font-size: 1.52rem;
+    font-size: 1.72rem;
     font-weight: 950;
-    letter-spacing: 0.01em;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+    letter-spacing: 0.015em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.48);
     border-radius: 13px;
   }
 
