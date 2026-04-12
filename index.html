@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/icon.svg">
-  <link rel="stylesheet" href="styles.css?v=20260412-noscrollfit">
+  <link rel="stylesheet" href="styles.css?v=20260412-fixedwordspanel">
 </head>
 <body>
   <div class="page-shell">
@@ -48,13 +48,10 @@
 
       <section class="play-card">
         <div class="current-word-panel" aria-live="polite">
-          <span class="current-word-label">Current word</span>
           <strong class="current-word-value" id="current-word">Tap letters</strong>
         </div>
 
-        <p class="status-line" id="status-line" aria-live="polite">
-          Start with the center letter and see how far you can get.
-        </p>
+        <p class="status-line" id="status-line" aria-live="polite"></p>
 
         <section class="words-panel">
           <div class="accepted-words" id="accepted-words"></div>
@@ -93,6 +90,6 @@
     </div>
   </div>
 
-  <script src="game.js?v=20260412-noscrollfit"></script>
+  <script src="game.js?v=20260412-fixedwordspanel"></script>
 </body>
 </html>

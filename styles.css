@@ -871,7 +871,7 @@ h2 {
 
   .hero-card,
   .play-card {
-    padding: 12px;
+    padding: 10px;
     border-radius: 18px;
     min-height: 0;
   }
@@ -879,99 +879,105 @@ h2 {
   .hero-card {
     display: grid;
     align-content: start;
-    gap: 8px;
+    gap: 4px;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
   }
 
   .board-controls {
-    gap: 8px;
+    gap: 6px;
   }
 
   .board-actions {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    gap: 5px;
   }
 
   .board-actions button {
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 0.84rem;
   }
 
   .letter-grid {
-    grid-template-columns: repeat(3, minmax(72px, 86px));
-    gap: 9px;
+    grid-template-columns: repeat(3, minmax(64px, 74px));
+    gap: 7px;
     width: auto;
   }
 
   .letter-tile {
-    font-size: 1.75rem;
-    border-radius: 18px;
+    font-size: 1.48rem;
+    border-radius: 16px;
   }
 
   .current-word-panel {
-    min-height: 46px;
-    padding: 6px 8px;
+    min-height: 28px;
+    padding: 3px 6px;
   }
 
   .current-word-value {
-    font-size: clamp(0.92rem, 5.2vw, 1.2rem);
-    min-height: 1em;
-  }
-
-  .current-word-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
+    font-size: clamp(0.8rem, 4.4vw, 1rem);
+    min-height: 0.92em;
   }
 
   .status-line {
-    font-size: 0.72rem;
-    min-height: 0.8em;
+    font-size: 0.66rem;
+    min-height: 0.72em;
   }
 
   .play-card {
-    gap: 6px;
+    gap: 4px;
     grid-template-rows: auto auto minmax(0, 1fr);
     min-height: 0;
   }
 
   .words-panel {
-    padding: 6px;
-    border-radius: 16px;
+    padding: 4px;
+    border-radius: 14px;
     min-height: 0;
     overflow: hidden;
+    height: 240px;
   }
 
   .accepted-words {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 4px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 3px;
     height: 100%;
     align-content: start;
   }
 
   .word-pill,
   .empty-state {
-    padding: 4px 3px;
-    font-size: 0.56rem;
-    border-radius: 10px;
+    padding: 3px 2px;
+    font-size: 0.5rem;
+    border-radius: 8px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.05;
   }
 
   .progress-card {
-    padding: 6px 8px;
+    padding: 4px 6px;
+    margin-top: 4px;
   }
 
   .progress-copy {
-    margin-bottom: 8px;
+    margin-bottom: 5px;
+    font-size: 0.72rem;
   }
 
   .progress-track {
-    height: 6px;
+    height: 5px;
   }
 
   .accepted-toast {
