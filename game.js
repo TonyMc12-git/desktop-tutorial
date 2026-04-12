@@ -561,7 +561,7 @@ function handleRejectedWord(word, verdict) {
   }
 
   if (verdict.code === "missing" && state.missedSet.has(word)) {
-    showFeedback("clown", "", "Lol you keep trying that same word - still no 😂");
+    showFeedback("clown", "", "Lol you keep trying that same word - still no! 😂");
     return;
   }
 
