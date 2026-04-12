@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/icon.svg">
-  <link rel="stylesheet" href="styles.css?v=20260412-biggergrid">
+  <link rel="stylesheet" href="styles.css?v=20260412-kittycompact">
 </head>
 <body>
   <div class="page-shell">
@@ -21,8 +21,7 @@
 
     <main class="app">
       <section class="hero-card">
-        <p class="eyebrow">Word Hunt</p>
-        <h1>Nine Letters</h1>
+        <p class="eyebrow">Kitty Words</p>
         <div class="progress-card">
           <div class="progress-copy">
             <span>Progress</span>
@@ -30,18 +29,18 @@
           </div>
           <div class="progress-track" aria-hidden="true">
             <div class="progress-fill" id="progress-fill"></div>
+            <div class="progress-markers" id="progress-markers"></div>
           </div>
         </div>
 
         <div class="letter-stage">
           <div class="letter-grid" id="letter-grid" aria-label="Letter board"></div>
           <div class="board-controls">
-            <button class="shuffle-button" id="shuffle-button" type="button">Shuffle</button>
             <div class="board-actions">
+              <button class="primary-button" id="submit-button" type="button">Submit</button>
+              <button class="secondary-button" id="clear-button" type="button">Clear</button>
               <button class="danger-button" id="give-up-button" type="button">I give up</button>
               <button class="secondary-button" id="new-game-button" type="button">New game</button>
-              <button class="secondary-button" id="clear-button" type="button">Clear</button>
-              <button class="primary-button" id="submit-button" type="button">Submit</button>
             </div>
           </div>
         </div>
@@ -57,17 +56,7 @@
           Start with the center letter and see how far you can get.
         </p>
 
-        <section class="milestones-panel">
-          <div class="panel-heading">
-            <h2>Milestones</h2>
-          </div>
-          <div class="milestone-grid" id="milestone-grid"></div>
-        </section>
-
         <section class="words-panel">
-          <div class="panel-heading">
-            <h2>Accepted words</h2>
-          </div>
           <div class="accepted-words" id="accepted-words"></div>
         </section>
       </section>
@@ -102,6 +91,6 @@
     </div>
   </div>
 
-  <script src="game.js?v=20260412-pwa"></script>
+  <script src="game.js?v=20260412-kittycompact"></script>
 </body>
 </html>

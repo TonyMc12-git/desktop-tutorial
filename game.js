@@ -31,15 +31,14 @@ const heroCard = document.querySelector(".hero-card");
 const playCard = document.querySelector(".play-card");
 const progressCopyEl = document.getElementById("progress-copy");
 const progressFillEl = document.getElementById("progress-fill");
+const progressMarkersEl = document.getElementById("progress-markers");
 const letterGridEl = document.getElementById("letter-grid");
-const milestoneGridEl = document.getElementById("milestone-grid");
 const acceptedWordsEl = document.getElementById("accepted-words");
 const statusLineEl = document.getElementById("status-line");
 const celebrationBannerEl = document.getElementById("celebration-banner");
 const currentWordEl = document.getElementById("current-word");
 const clearButtonEl = document.getElementById("clear-button");
 const submitButtonEl = document.getElementById("submit-button");
-const shuffleButtonEl = document.getElementById("shuffle-button");
 const giveUpButtonEl = document.getElementById("give-up-button");
 const newGameButtonEl = document.getElementById("new-game-button");
 const feedbackModalEl = document.getElementById("feedback-modal");
@@ -79,7 +78,6 @@ clearButtonEl.addEventListener("click", () => {
   syncLetterButtonsFromGuess();
   setStatus("Input cleared. Try another word.");
 });
-shuffleButtonEl.addEventListener("click", shuffleOuterLetters);
 giveUpButtonEl.addEventListener("click", openGiveUpConfirm);
 newGameButtonEl.addEventListener("click", startNewGame);
 feedbackCloseEl.addEventListener("click", hideFeedback);
@@ -251,30 +249,21 @@ function renderLetters(letters) {
 }
 
 function renderMilestones() {
-  milestoneGridEl.innerHTML = "";
+  progressMarkersEl.innerHTML = "";
 
   if (state.milestones.length === 0) {
-    const card = document.createElement("article");
-    card.className = "milestone-card";
-    card.innerHTML = `
-      <strong>Loading source</strong>
-      <span>Milestones appear once the fixed word list is ready.</span>
-    `;
-    milestoneGridEl.appendChild(card);
     return;
   }
 
-  state.milestones.forEach((milestone) => {
-    const card = document.createElement("article");
+  state.milestones.slice(0, 3).forEach((milestone, index) => {
+    const marker = document.createElement("span");
     const unlocked = state.foundWords.length >= milestone.target;
+    const tones = ["bronze", "silver", "gold"];
 
-    card.className = `milestone-card${unlocked ? " unlocked" : ""}`;
-    card.innerHTML = `
-      <strong>${milestone.label}</strong>
-      <span>${milestone.description}</span>
-    `;
-
-    milestoneGridEl.appendChild(card);
+    marker.className = `progress-marker tone-${tones[index]}${unlocked ? " unlocked" : ""}`;
+    marker.style.left = `${(milestone.target / state.acceptedWords.length) * 100}%`;
+    marker.title = milestone.label;
+    progressMarkersEl.appendChild(marker);
   });
 }
 
@@ -322,7 +311,6 @@ function renderActionButtons() {
   const disabled = !state.isReady || state.isRevealed;
   clearButtonEl.disabled = disabled || !state.currentGuess;
   submitButtonEl.disabled = disabled || !state.currentGuess;
-  shuffleButtonEl.disabled = disabled;
   giveUpButtonEl.disabled = disabled;
 }
 
@@ -411,12 +399,6 @@ function showNextCelebration() {
       showNextCelebration();
     }, 260);
   }, celebration.duration || 2600);
-}
-
-function shuffleOuterLetters() {
-  state.displayedLetters = buildShuffledBoardLetters(currentPuzzle.letters);
-  renderLetters(state.displayedLetters);
-  syncLetterButtonsFromGuess();
 }
 
 function buildAcceptedWords(sourceWords, puzzleConfig = currentPuzzle) {

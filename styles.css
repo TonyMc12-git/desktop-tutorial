@@ -84,7 +84,7 @@ body {
 .play-card {
   padding: 28px;
   display: grid;
-  gap: 24px;
+  gap: 14px;
   align-content: start;
 }
 
@@ -103,11 +103,6 @@ h2 {
   margin: 0;
 }
 
-h1 {
-  font-size: clamp(2.6rem, 6vw, 4.8rem);
-  line-height: 0.95;
-}
-
 h2 {
   font-size: 1.35rem;
 }
@@ -118,7 +113,6 @@ h2 {
 }
 
 .progress-card,
-.milestones-panel,
 .words-panel,
 .current-word-panel {
   background: var(--panel-strong);
@@ -127,8 +121,8 @@ h2 {
 }
 
 .progress-card {
-  margin-top: 20px;
-  padding: 18px;
+  margin-top: 10px;
+  padding: 12px 14px;
 }
 
 .progress-copy {
@@ -143,7 +137,8 @@ h2 {
 }
 
 .progress-track {
-  height: 14px;
+  position: relative;
+  height: 10px;
   border-radius: 999px;
   background: rgba(21, 34, 47, 0.08);
   overflow: hidden;
@@ -157,27 +152,60 @@ h2 {
   transition: width 280ms ease;
 }
 
+.progress-markers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.progress-marker {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 999px;
+  opacity: 0.45;
+  background: rgba(21, 34, 47, 0.24);
+}
+
+.progress-marker.unlocked {
+  opacity: 1;
+}
+
+.progress-marker.tone-bronze {
+  background: #c97f3c;
+}
+
+.progress-marker.tone-silver {
+  background: #94a1b2;
+}
+
+.progress-marker.tone-gold {
+  background: #d8a31a;
+}
+
 .letter-stage {
-  margin-top: 22px;
+  margin-top: 14px;
   display: grid;
-  gap: 18px;
-  justify-items: start;
+  gap: 14px;
+  justify-items: center;
 }
 
 .letter-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(98px, 118px));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(90px, 106px));
+  gap: 12px;
 }
 
 .letter-tile {
   width: 100%;
   aspect-ratio: 1;
   border: 0;
-  border-radius: 24px;
+  border-radius: 22px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 235, 224, 0.96));
   color: var(--ink);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 800;
   box-shadow: 0 14px 28px rgba(50, 36, 19, 0.12);
   transition: transform 180ms ease, box-shadow 180ms ease;
@@ -204,20 +232,16 @@ h2 {
 }
 
 .board-controls {
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  align-items: center;
+  width: 100%;
+  display: grid;
+  gap: 10px;
 }
 
 .board-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: end;
+  display: grid;
+  gap: 8px;
 }
 
-.shuffle-button,
 .primary-button,
 .secondary-button,
 .danger-button {
@@ -228,7 +252,6 @@ h2 {
   transition: transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
 }
 
-.shuffle-button,
 .secondary-button {
   padding: 12px 18px;
   background: rgba(21, 34, 47, 0.08);
@@ -249,14 +272,12 @@ h2 {
   box-shadow: 0 14px 28px rgba(217, 72, 65, 0.18);
 }
 
-.shuffle-button:hover,
 .primary-button:hover,
 .secondary-button:hover,
 .danger-button:hover {
   transform: translateY(-1px);
 }
 
-.shuffle-button:disabled,
 .primary-button:disabled,
 .secondary-button:disabled,
 .danger-button:disabled {
@@ -267,11 +288,11 @@ h2 {
 }
 
 .current-word-panel {
-  padding: 18px 20px;
-  min-height: 130px;
+  padding: 10px 14px;
+  min-height: 76px;
   display: grid;
   align-content: center;
-  gap: 10px;
+  gap: 4px;
 }
 
 .current-word-label {
@@ -285,11 +306,11 @@ h2 {
 .current-word-value {
   color: var(--ink);
   font-family: Georgia, "Palatino Linotype", serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.35rem, 4vw, 2.3rem);
   line-height: 0.92;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  min-height: 1.9em;
+  min-height: 1.2em;
   overflow-wrap: anywhere;
 }
 
@@ -298,52 +319,16 @@ h2 {
 }
 
 .status-line {
-  min-height: 1.4em;
+  min-height: 1.1em;
   margin: 0;
-}
-
-.panel-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 14px;
-}
-
-.milestone-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.milestone-card {
-  padding: 16px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(245, 239, 230, 0.96));
-  border: 1px solid var(--line);
-  transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
-}
-
-.milestone-card strong,
-.milestone-card span {
-  display: block;
-}
-
-.milestone-card span {
-  color: var(--muted);
-  margin-top: 6px;
-}
-
-.milestone-card.unlocked {
-  transform: translateY(-2px);
-  background: linear-gradient(180deg, rgba(255, 228, 161, 0.98), rgba(255, 183, 95, 0.96));
-  box-shadow: 0 18px 28px rgba(255, 122, 24, 0.14);
+  font-size: 0.92rem;
 }
 
 .accepted-words {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  min-height: 108px;
+  gap: 6px;
+  min-height: 0;
   align-content: start;
 }
 
@@ -358,6 +343,9 @@ h2 {
   color: var(--accent-3);
   font-weight: 700;
   border: 1px solid rgba(18, 122, 105, 0.14);
+  padding: 6px 9px;
+  font-size: 0.78rem;
+  line-height: 1.1;
 }
 
 .word-pill.missed {
@@ -791,7 +779,7 @@ h2 {
   }
 
   .current-word-panel {
-    min-height: 112px;
+    min-height: 72px;
   }
 }
 
@@ -803,85 +791,133 @@ h2 {
 
   .hero-card,
   .play-card {
-    padding: 24px;
+    padding: 18px;
   }
 
   .eyebrow {
-    margin-bottom: 8px;
-  }
-
-  h1 {
-    font-size: clamp(2.35rem, 5vw, 4rem);
+    margin-bottom: 4px;
   }
 
   .progress-card {
-    margin-top: 12px;
-    padding: 14px 16px;
+    margin-top: 8px;
+    padding: 10px 12px;
   }
 
   .letter-stage {
-    margin-top: 16px;
-    gap: 14px;
+    margin-top: 12px;
+    gap: 12px;
   }
 
   .letter-grid {
-    grid-template-columns: repeat(3, minmax(84px, 96px));
-    gap: 13px;
+    grid-template-columns: repeat(3, minmax(78px, 88px));
+    gap: 11px;
   }
 
   .letter-tile {
     border-radius: 20px;
-    font-size: 2.05rem;
+    font-size: 1.9rem;
   }
 
   .current-word-panel {
-    min-height: 104px;
-    padding: 16px 18px;
+    min-height: 64px;
+    padding: 10px 12px;
   }
 }
 
 @media (max-width: 640px) {
+  body {
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
   .page-shell {
-    padding: 18px 14px 42px;
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+    padding: 8px 8px 10px;
   }
 
   .hero-card,
   .play-card {
-    padding: 20px;
-    border-radius: 24px;
-  }
-
-  .milestone-grid {
-    grid-template-columns: 1fr;
+    padding: 12px;
+    border-radius: 18px;
   }
 
   .board-controls {
-    display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
   .board-actions {
     width: 100%;
-    justify-content: stretch;
+    gap: 6px;
   }
 
-  .board-actions button,
-  .shuffle-button {
+  .board-actions button {
     width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .letter-grid {
-    grid-template-columns: repeat(3, minmax(92px, 1fr));
-    width: 100%;
+    grid-template-columns: repeat(3, minmax(72px, 86px));
+    gap: 9px;
+    width: auto;
+  }
+
+  .letter-tile {
+    font-size: 1.75rem;
+    border-radius: 18px;
   }
 
   .current-word-panel {
-    min-height: 96px;
-    padding: 16px;
+    min-height: 54px;
+    padding: 8px 10px;
   }
 
   .current-word-value {
-    font-size: clamp(1.8rem, 10vw, 2.75rem);
+    font-size: clamp(1rem, 6vw, 1.4rem);
+    min-height: 1em;
+  }
+
+  .current-word-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+  }
+
+  .status-line {
+    font-size: 0.78rem;
+    min-height: 0.95em;
+  }
+
+  .play-card {
+    gap: 8px;
+  }
+
+  .words-panel {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .accepted-words {
+    gap: 5px;
+  }
+
+  .word-pill,
+  .empty-state {
+    padding: 5px 7px;
+    font-size: 0.68rem;
+  }
+
+  .progress-card {
+    padding: 8px 10px;
+  }
+
+  .progress-copy {
+    margin-bottom: 8px;
+  }
+
+  .progress-track {
+    height: 7px;
   }
 
   .celebration-banner {
