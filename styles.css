@@ -2,7 +2,7 @@
   --bg: #f4ede1;
   --panel: rgba(255, 251, 245, 0.84);
   --panel-strong: rgba(255, 249, 241, 0.96);
-  --lilac-panel: rgba(220, 208, 240, 0.82);
+  --lilac-panel: rgba(198, 179, 232, 0.9);
   --ink: #15222f;
   --muted: #576774;
   --line: rgba(21, 34, 47, 0.12);
@@ -363,10 +363,10 @@ h2 {
 }
 
 .word-pill {
-  background: rgba(18, 122, 105, 0.1);
-  color: var(--accent-3);
+  background: rgba(18, 122, 105, 0.2);
+  color: #0d6658;
   font-weight: 700;
-  border: 1px solid rgba(18, 122, 105, 0.14);
+  border: 1px solid rgba(18, 122, 105, 0.28);
   padding: 6px 9px;
   font-size: 0.78rem;
   line-height: 1.1;
