@@ -1038,6 +1038,59 @@ h2 {
     align-self: flex-start;
   }
 
+  body.revealed-mode .hero-card {
+    gap: 1px;
+  }
+
+  body.revealed-mode .progress-card,
+  body.revealed-mode .current-word-panel,
+  body.revealed-mode #submit-button,
+  body.revealed-mode #clear-button,
+  body.revealed-mode #give-up-button {
+    display: none;
+  }
+
+  body.revealed-mode .letter-stage {
+    margin-top: 6px;
+    gap: 8px;
+    padding: 8px 8px 6px;
+  }
+
+  body.revealed-mode .letter-grid {
+    grid-template-columns: repeat(3, minmax(48px, 58px));
+    gap: 4px;
+  }
+
+  body.revealed-mode .letter-tile {
+    font-size: 1.42rem;
+    border-radius: 11px;
+  }
+
+  body.revealed-mode .board-actions {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  body.revealed-mode #new-game-button {
+    display: block;
+  }
+
+  body.revealed-mode .play-card {
+    gap: 0;
+  }
+
+  body.revealed-mode .accepted-words {
+    padding: 6px;
+    gap: 4px;
+  }
+
+  body.revealed-mode .word-pill,
+  body.revealed-mode .empty-state {
+    padding: 4px 5px;
+    font-size: 0.63rem;
+    line-height: 1;
+  }
+
   .progress-card {
     padding: 2px 4px;
     margin-top: 1px;

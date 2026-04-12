@@ -161,6 +161,7 @@ function registerServiceWorker() {
 }
 
 function render() {
+  document.body.classList.toggle("revealed-mode", state.isRevealed);
   renderLetters(state.displayedLetters);
   renderMilestones();
   renderAcceptedWords();
