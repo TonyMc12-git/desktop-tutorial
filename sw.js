@@ -1,11 +1,11 @@
-const CACHE_NAME = "nine-letters-pwa-v33";
+const CACHE_NAME = "nine-letters-pwa-v34";
 
 const APP_ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./styles.css?v=20260412-revealmode5",
-  "./game.js?v=20260412-revealmode5",
+  "./styles.css?v=20260412-bluepanel1",
+  "./game.js?v=20260412-bluepanel1",
   "./data/preserved/size60-filtered-4to9-v2.txt?v=20260412-britishb",
   "./icons/icon.svg",
   "./icons/icon-maskable.svg"
