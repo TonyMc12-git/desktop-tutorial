@@ -36,6 +36,7 @@ const letterGridEl = document.getElementById("letter-grid");
 const acceptedWordsEl = document.getElementById("accepted-words");
 const statusLineEl = document.getElementById("status-line");
 const celebrationBannerEl = document.getElementById("celebration-banner");
+const acceptedToastEl = document.getElementById("accepted-toast");
 const currentWordEl = document.getElementById("current-word");
 const clearButtonEl = document.getElementById("clear-button");
 const submitButtonEl = document.getElementById("submit-button");
@@ -76,7 +77,7 @@ clearButtonEl.addEventListener("click", () => {
   state.selectedTileIds = [];
   renderCurrentGuess();
   syncLetterButtonsFromGuess();
-  setStatus("Input cleared. Try another word.");
+  setStatus("");
 });
 giveUpButtonEl.addEventListener("click", openGiveUpConfirm);
 newGameButtonEl.addEventListener("click", startNewGame);
@@ -155,7 +156,8 @@ function submitWord() {
   state.selectedTileIds = [];
   renderCurrentGuess();
   syncLetterButtonsFromGuess();
-  setStatus(`Accepted: ${rawWord.toUpperCase()}`);
+  setStatus("");
+  showAcceptedToast(rawWord);
   renderAcceptedWords();
   updateStats();
   celebrateFoundWord(rawWord);
@@ -719,6 +721,15 @@ function setStatus(message) {
   statusLineEl.textContent = message;
 }
 
+function showAcceptedToast(word) {
+  acceptedToastEl.textContent = `${word.toUpperCase()} accepted`;
+  acceptedToastEl.classList.add("show");
+  window.clearTimeout(showAcceptedToast.timeoutId);
+  showAcceptedToast.timeoutId = window.setTimeout(() => {
+    acceptedToastEl.classList.remove("show");
+  }, 1350);
+}
+
 function getStorageKey() {
   return `nine-letters:${getPuzzleKey(currentPuzzle)}:scowl-british-oxford-size${dictionaryTier}-preserved-v2`;
 }
@@ -758,7 +769,7 @@ function startPuzzle(puzzleConfig, { resetProgress = true } = {}) {
 
   celebrationBannerEl.className = "celebration-banner";
   render();
-  setStatus(`Loaded ${state.acceptedWords.length} valid words from ${currentPuzzle.sourceLabel}.`);
+  setStatus("");
 }
 
 function openGiveUpConfirm() {

@@ -324,6 +324,10 @@ h2 {
   font-size: 0.92rem;
 }
 
+.status-line:empty {
+  display: none;
+}
+
 .accepted-words {
   display: flex;
   flex-wrap: wrap;
@@ -357,6 +361,29 @@ h2 {
 .empty-state {
   color: var(--muted);
   background: rgba(21, 34, 47, 0.05);
+}
+
+.accepted-toast {
+  position: fixed;
+  left: 50%;
+  top: 18px;
+  z-index: 10002;
+  transform: translate(-50%, -14px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(18, 122, 105, 0.96);
+  color: white;
+  box-shadow: 0 18px 40px rgba(18, 122, 105, 0.28);
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.accepted-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .celebration-banner {
@@ -837,10 +864,22 @@ h2 {
     padding: 8px 8px 10px;
   }
 
+  .app {
+    height: 100%;
+    gap: 8px;
+  }
+
   .hero-card,
   .play-card {
     padding: 12px;
     border-radius: 18px;
+    min-height: 0;
+  }
+
+  .hero-card {
+    display: grid;
+    align-content: start;
+    gap: 8px;
   }
 
   .board-controls {
@@ -849,6 +888,8 @@ h2 {
 
   .board-actions {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
   }
 
@@ -870,12 +911,12 @@ h2 {
   }
 
   .current-word-panel {
-    min-height: 54px;
-    padding: 8px 10px;
+    min-height: 46px;
+    padding: 6px 8px;
   }
 
   .current-word-value {
-    font-size: clamp(1rem, 6vw, 1.4rem);
+    font-size: clamp(0.92rem, 5.2vw, 1.2rem);
     min-height: 1em;
   }
 
@@ -885,31 +926,44 @@ h2 {
   }
 
   .status-line {
-    font-size: 0.78rem;
-    min-height: 0.95em;
+    font-size: 0.72rem;
+    min-height: 0.8em;
   }
 
   .play-card {
-    gap: 8px;
+    gap: 6px;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    min-height: 0;
   }
 
   .words-panel {
-    padding: 8px;
+    padding: 6px;
     border-radius: 16px;
+    min-height: 0;
+    overflow: hidden;
   }
 
   .accepted-words {
-    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+    height: 100%;
+    align-content: start;
   }
 
   .word-pill,
   .empty-state {
-    padding: 5px 7px;
-    font-size: 0.68rem;
+    padding: 4px 3px;
+    font-size: 0.56rem;
+    border-radius: 10px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .progress-card {
-    padding: 8px 10px;
+    padding: 6px 8px;
   }
 
   .progress-copy {
@@ -917,7 +971,13 @@ h2 {
   }
 
   .progress-track {
-    height: 7px;
+    height: 6px;
+  }
+
+  .accepted-toast {
+    top: 10px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
   }
 
   .celebration-banner {
