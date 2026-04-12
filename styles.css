@@ -107,8 +107,7 @@ h2 {
   font-size: 1.35rem;
 }
 
-.status-line,
-.progress-copy span {
+.status-line {
   color: var(--muted);
 }
 
@@ -122,23 +121,22 @@ h2 {
 
 .progress-card {
   margin-top: 10px;
-  padding: 12px 14px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 6px;
 }
 
-.progress-copy {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.progress-copy strong {
+.progress-total {
   color: var(--ink);
+  justify-self: end;
+  font-size: 0.92rem;
+  line-height: 1;
+  font-weight: 800;
 }
 
 .progress-track {
   position: relative;
-  height: 10px;
+  height: 12px;
   border-radius: 999px;
   background: rgba(21, 34, 47, 0.08);
   overflow: hidden;
@@ -162,11 +160,12 @@ h2 {
   position: absolute;
   top: 1px;
   bottom: 1px;
-  width: 2px;
-  margin-left: -1px;
+  width: 4px;
+  margin-left: -2px;
   border-radius: 999px;
-  opacity: 0.45;
+  opacity: 0.7;
   background: rgba(21, 34, 47, 0.24);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45);
 }
 
 .progress-marker.unlocked {
@@ -188,7 +187,7 @@ h2 {
 .letter-stage {
   margin-top: 14px;
   display: grid;
-  gap: 14px;
+  gap: 18px;
   justify-items: center;
 }
 
@@ -867,6 +866,7 @@ h2 {
   .app {
     height: 100%;
     gap: 8px;
+    grid-template-rows: auto minmax(0, 1fr);
   }
 
   .hero-card,
@@ -879,7 +879,7 @@ h2 {
   .hero-card {
     display: grid;
     align-content: start;
-    gap: 4px;
+    gap: 2px;
   }
 
   .eyebrow {
@@ -889,7 +889,7 @@ h2 {
   }
 
   .board-controls {
-    gap: 6px;
+    gap: 10px;
   }
 
   .board-actions {
@@ -907,14 +907,14 @@ h2 {
   }
 
   .letter-grid {
-    grid-template-columns: repeat(3, minmax(64px, 74px));
-    gap: 7px;
+    grid-template-columns: repeat(3, minmax(58px, 68px));
+    gap: 6px;
     width: auto;
   }
 
   .letter-tile {
-    font-size: 1.48rem;
-    border-radius: 16px;
+    font-size: 1.34rem;
+    border-radius: 14px;
   }
 
   .current-word-panel {
@@ -936,6 +936,7 @@ h2 {
     gap: 4px;
     grid-template-rows: auto auto minmax(0, 1fr);
     min-height: 0;
+    height: 100%;
   }
 
   .words-panel {
@@ -943,41 +944,47 @@ h2 {
     border-radius: 14px;
     min-height: 0;
     overflow: hidden;
-    height: 240px;
+    height: 280px;
   }
 
   .accepted-words {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 3px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
     height: 100%;
     align-content: start;
+    grid-auto-rows: 1fr;
   }
 
   .word-pill,
   .empty-state {
-    padding: 3px 2px;
-    font-size: 0.5rem;
-    border-radius: 8px;
+    padding: 5px 4px;
+    font-size: 0.61rem;
+    border-radius: 9px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.05;
+    line-height: 1.08;
   }
 
   .progress-card {
-    padding: 4px 6px;
-    margin-top: 4px;
+    padding: 3px 4px;
+    margin-top: 1px;
+    gap: 4px;
   }
 
-  .progress-copy {
-    margin-bottom: 5px;
+  .progress-total {
     font-size: 0.72rem;
   }
 
   .progress-track {
-    height: 5px;
+    height: 8px;
+  }
+
+  .progress-marker {
+    width: 5px;
+    margin-left: -2.5px;
   }
 
   .accepted-toast {
