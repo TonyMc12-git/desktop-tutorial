@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/icon.svg">
-  <link rel="stylesheet" href="styles.css?v=20260412-chipfix1">
+  <link rel="stylesheet" href="styles.css?v=20260412-phonefit1">
 </head>
 <body>
   <div class="page-shell">
@@ -23,11 +23,13 @@
       <section class="hero-card">
         <p class="eyebrow">Kitty Words</p>
         <div class="progress-card">
-          <div class="progress-track" aria-hidden="true">
-            <div class="progress-fill" id="progress-fill"></div>
-            <div class="progress-markers" id="progress-markers"></div>
+          <div class="progress-inline">
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" id="progress-fill"></div>
+              <div class="progress-markers" id="progress-markers"></div>
+            </div>
+            <strong class="progress-total" id="progress-copy">0 / 0</strong>
           </div>
-          <strong class="progress-total" id="progress-copy">0 / 0</strong>
         </div>
 
         <div class="letter-stage">
@@ -48,10 +50,7 @@
 
       <section class="play-card">
         <p class="status-line" id="status-line" aria-live="polite"></p>
-
-        <section class="words-panel">
-          <div class="accepted-words" id="accepted-words"></div>
-        </section>
+        <div class="accepted-words" id="accepted-words"></div>
       </section>
     </main>
 
@@ -86,6 +85,6 @@
     </div>
   </div>
 
-  <script src="game.js?v=20260412-chipfix1"></script>
+  <script src="game.js?v=20260412-phonefit1"></script>
 </body>
 </html>
