@@ -1040,7 +1040,7 @@ h2 {
 
   body.revealed-mode .hero-card {
     gap: 0;
-    padding: 4px 0 0;
+    padding: 2px 0 0;
     background: transparent;
     backdrop-filter: none;
     border: 0;
@@ -1073,39 +1073,48 @@ h2 {
 
   body.revealed-mode #new-game-button {
     display: block;
-    min-height: 34px;
+    min-height: 30px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 0.8rem;
+  }
+
+  body.revealed-mode .status-line {
+    display: none;
   }
 
   body.revealed-mode .play-card {
     gap: 0;
     grid-template-rows: 1fr;
-    height: calc(100dvh - 54px);
+    height: calc(100dvh - 42px);
   }
 
   @supports (height: 100svh) {
     body.revealed-mode .play-card {
-      height: calc(100svh - 54px);
+      height: calc(100svh - 42px);
     }
   }
 
   body.revealed-mode .accepted-words {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-auto-rows: min-content;
     align-content: start;
     align-items: start;
-    padding: 4px;
-    gap: 2px;
+    padding: 2px;
+    gap: 1px;
+    border-radius: 12px;
   }
 
   body.revealed-mode .word-pill,
   body.revealed-mode .empty-state {
     width: 100%;
     min-width: 0;
-    padding: 3px 2px;
-    font-size: 0.5rem;
-    line-height: 0.96;
-    border-radius: 8px;
+    padding: 2px 1px;
+    font-size: 0.44rem;
+    line-height: 0.92;
+    border-radius: 6px;
+    letter-spacing: 0;
   }
 
   body.revealed-mode .word-pill {
