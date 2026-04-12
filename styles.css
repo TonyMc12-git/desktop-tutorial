@@ -265,10 +265,10 @@ h2 {
 
 .secondary-button {
   padding: 12px 18px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #1d2230;
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow: 0 10px 24px rgba(20, 16, 40, 0.16);
+  background: #f4f0ff;
+  color: #261d44;
+  border: 1px solid rgba(79, 54, 138, 0.3);
+  box-shadow: 0 10px 24px rgba(20, 16, 40, 0.22);
 }
 
 .danger-button {
@@ -368,16 +368,16 @@ h2 {
 }
 
 .word-pill {
-  background: rgba(57, 178, 147, 0.92);
-  color: #ffffff;
+  background: #d9f7e7;
+  color: #0d5c3f;
   font-weight: 700;
-  border: 1px solid rgba(185, 255, 237, 0.4);
+  border: 1px solid rgba(46, 137, 92, 0.3);
   padding: 6px 9px;
   font-size: 0.78rem;
   line-height: 1.1;
   flex: 0 0 auto;
   align-self: flex-start;
-  box-shadow: 0 6px 14px rgba(10, 28, 30, 0.16);
+  box-shadow: 0 6px 14px rgba(10, 28, 30, 0.12);
 }
 
 .word-pill.missed {
