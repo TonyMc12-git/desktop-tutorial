@@ -1039,11 +1039,18 @@ h2 {
   }
 
   body.revealed-mode .hero-card {
-    gap: 1px;
+    gap: 0;
+    padding: 4px 0 0;
+    background: transparent;
+    backdrop-filter: none;
+    border: 0;
+    box-shadow: none;
   }
 
+  body.revealed-mode .eyebrow,
   body.revealed-mode .progress-card,
   body.revealed-mode .current-word-panel,
+  body.revealed-mode .letter-grid,
   body.revealed-mode #submit-button,
   body.revealed-mode #clear-button,
   body.revealed-mode #give-up-button {
@@ -1051,43 +1058,45 @@ h2 {
   }
 
   body.revealed-mode .letter-stage {
-    margin-top: 6px;
-    gap: 8px;
-    padding: 8px 8px 6px;
-  }
-
-  body.revealed-mode .letter-grid {
-    grid-template-columns: repeat(3, minmax(48px, 58px));
-    gap: 4px;
-  }
-
-  body.revealed-mode .letter-tile {
-    font-size: 1.42rem;
-    border-radius: 11px;
+    margin-top: 0;
+    gap: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
   }
 
   body.revealed-mode .board-actions {
     grid-template-columns: 1fr;
     gap: 0;
+    width: 100%;
   }
 
   body.revealed-mode #new-game-button {
     display: block;
+    min-height: 34px;
   }
 
   body.revealed-mode .play-card {
     gap: 0;
+    grid-template-rows: 1fr;
+    height: calc(100dvh - 54px);
+  }
+
+  @supports (height: 100svh) {
+    body.revealed-mode .play-card {
+      height: calc(100svh - 54px);
+    }
   }
 
   body.revealed-mode .accepted-words {
-    padding: 6px;
-    gap: 4px;
+    padding: 6px 6px 8px;
+    gap: 3px;
   }
 
   body.revealed-mode .word-pill,
   body.revealed-mode .empty-state {
-    padding: 4px 5px;
-    font-size: 0.63rem;
+    padding: 3px 4px;
+    font-size: 0.56rem;
     line-height: 1;
   }
 
