@@ -4,7 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nine Letters</title>
-  <link rel="stylesheet" href="styles.css?v=20260411-heightfit">
+  <meta name="theme-color" content="#f1ddbb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Nine Letters">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+  <link rel="stylesheet" href="styles.css?v=20260412-biggergrid">
 </head>
 <body>
   <div class="page-shell">
@@ -15,24 +23,6 @@
       <section class="hero-card">
         <p class="eyebrow">Word Hunt</p>
         <h1>Nine Letters</h1>
-        <p class="intro">
-          Build as many words as you can from the nine letters below. Every accepted word must be at least four letters long, must include the golden center letter, and cannot reuse any letter.
-        </p>
-        <div class="stats-grid">
-          <article class="stat-card">
-            <span class="stat-label">Possible words</span>
-            <strong id="total-words">0</strong>
-          </article>
-          <article class="stat-card">
-            <span class="stat-label">Found</span>
-            <strong id="found-count">0</strong>
-          </article>
-          <article class="stat-card stat-card-longest">
-            <span class="stat-label">Longest word</span>
-            <strong id="longest-word">-</strong>
-          </article>
-        </div>
-
         <div class="progress-card">
           <div class="progress-copy">
             <span>Progress</span>
@@ -45,18 +35,22 @@
 
         <div class="letter-stage">
           <div class="letter-grid" id="letter-grid" aria-label="Letter board"></div>
-          <button class="shuffle-button" id="shuffle-button" type="button">Shuffle outer letters</button>
+          <div class="board-controls">
+            <button class="shuffle-button" id="shuffle-button" type="button">Shuffle</button>
+            <div class="board-actions">
+              <button class="danger-button" id="give-up-button" type="button">I give up</button>
+              <button class="secondary-button" id="new-game-button" type="button">New game</button>
+              <button class="secondary-button" id="clear-button" type="button">Clear</button>
+              <button class="primary-button" id="submit-button" type="button">Submit</button>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="play-card">
-        <div class="input-panel">
-          <label class="sr-only" for="word-input">Enter a word</label>
-          <input id="word-input" type="text" autocomplete="off" spellcheck="false" maxlength="9" placeholder="Type a word" />
-          <div class="input-actions">
-            <button class="secondary-button" id="clear-button" type="button">Clear</button>
-            <button class="primary-button" id="submit-button" type="button">Submit</button>
-          </div>
+        <div class="current-word-panel" aria-live="polite">
+          <span class="current-word-label">Current word</span>
+          <strong class="current-word-value" id="current-word">Tap letters</strong>
         </div>
 
         <p class="status-line" id="status-line" aria-live="polite">
@@ -66,7 +60,6 @@
         <section class="milestones-panel">
           <div class="panel-heading">
             <h2>Milestones</h2>
-            <p>Big visual rewards arrive as you hit each rung.</p>
           </div>
           <div class="milestone-grid" id="milestone-grid"></div>
         </section>
@@ -74,7 +67,6 @@
         <section class="words-panel">
           <div class="panel-heading">
             <h2>Accepted words</h2>
-            <p>Only successful entries are shown here.</p>
           </div>
           <div class="accepted-words" id="accepted-words"></div>
         </section>
@@ -90,6 +82,26 @@
     style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.82);z-index:9999;pointer-events:none;"
   ></div>
 
-  <script src="game.js?v=20260411-puzzle34"></script>
+  <div class="feedback-modal" id="feedback-modal" aria-live="assertive" aria-hidden="true">
+    <div class="feedback-card">
+      <div class="feedback-art" id="feedback-art" aria-hidden="true"></div>
+      <strong class="feedback-title" id="feedback-title"></strong>
+      <p class="feedback-copy" id="feedback-copy"></p>
+      <button class="primary-button feedback-close" id="feedback-close" type="button">OK</button>
+    </div>
+  </div>
+
+  <div class="confirm-modal" id="confirm-modal" aria-hidden="true">
+    <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <strong class="confirm-title" id="confirm-title">Are you sure you want to end the game?</strong>
+      <p class="confirm-copy">This will reveal every answer and mark the missed ones in red.</p>
+      <div class="confirm-actions">
+        <button class="secondary-button" id="confirm-cancel-button" type="button">Cancel</button>
+        <button class="danger-button" id="confirm-give-up-button" type="button">End game</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js?v=20260412-pwa"></script>
 </body>
 </html>

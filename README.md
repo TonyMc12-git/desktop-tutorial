@@ -49,6 +49,17 @@ That starts a local server and opens:
 
 - `http://localhost:8000/index.html`
 
+To open it on your phone over the same Wi-Fi, run:
+
+- `Play Nine Letters On Phone.bat`
+
+That serves the game on your laptop's local network address and prints the phone-friendly URL to use.
+
+Once the page opens on your phone:
+
+- on iPhone: use Safari and tap `Share > Add to Home Screen`
+- on Android: use Chrome and tap `Add to Home Screen` or `Install app`
+
 ## Current puzzle
 
 The shipped puzzle uses the letters in `PROFUSELY`. Its valid words are computed at runtime from the fixed SCOWL-based source file, not from a hand-maintained list.

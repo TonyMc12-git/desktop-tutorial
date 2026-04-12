@@ -1,0 +1,11 @@
+archaic-exclusions-size50.txt
+data/scowl-local.db
+data/scowl-local.db-journal
+size50-au-only-words.txt
+size50-au-regional-words.txt
+size50-extra-category-words.txt
+size50-extra-tag-words.txt
+size60-minus-size50-reconstructed-game-filter.txt
+size60-remainder-after-filters.txt
+spearmint-235-words.txt
+words.html
