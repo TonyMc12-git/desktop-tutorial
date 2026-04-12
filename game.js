@@ -397,6 +397,17 @@ function showNextCelebration() {
     celebrationBannerEl.classList.remove("show");
 
     window.setTimeout(() => {
+      if (celebration.lockAfter) {
+        state.currentGuess = "";
+        state.selectedTileIds = [];
+        state.isRevealed = true;
+        renderCurrentGuess();
+        syncLetterButtonsFromGuess();
+        renderAcceptedWords();
+        updateStats();
+        setStatus("");
+      }
+
       state.isCelebrationActive = false;
       showNextCelebration();
     }, 260);
@@ -458,9 +469,10 @@ function buildMilestones(total) {
       {
         tone: "final",
         kicker: "Perfect Finish",
-        title: "Puzzle Complete",
-        message: "Every accepted word is yours.",
-        duration: 4200
+        title: "You found ALL the words!! 🎉😄",
+        message: "🎊😊",
+        duration: 4200,
+        lockAfter: true
       }
     ];
 
