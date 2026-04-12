@@ -1089,15 +1089,27 @@ h2 {
   }
 
   body.revealed-mode .accepted-words {
-    padding: 6px 6px 8px;
-    gap: 3px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: min-content;
+    align-content: start;
+    align-items: start;
+    padding: 4px;
+    gap: 2px;
   }
 
   body.revealed-mode .word-pill,
   body.revealed-mode .empty-state {
-    padding: 3px 4px;
-    font-size: 0.56rem;
-    line-height: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 3px 2px;
+    font-size: 0.5rem;
+    line-height: 0.96;
+    border-radius: 8px;
+  }
+
+  body.revealed-mode .word-pill {
+    flex: none;
   }
 
   .progress-card {
