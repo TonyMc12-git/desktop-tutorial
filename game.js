@@ -277,13 +277,13 @@ function renderLetters(letters) {
       event.preventDefault();
       tile.setPointerCapture?.(event.pointerId);
       tile.classList.add("pressing");
+      selectLetterTile(index, letter);
     });
 
     tile.addEventListener("pointerup", (event) => {
       event.preventDefault();
       tile.releasePointerCapture?.(event.pointerId);
       tile.classList.remove("pressing");
-      selectLetterTile(index, letter);
     });
 
     tile.addEventListener("pointercancel", () => {

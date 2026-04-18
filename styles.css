@@ -1,8 +1,8 @@
 :root {
-  --bg: #f4ede1;
+  --bg: #123f2a;
   --panel: rgba(255, 251, 245, 0.84);
   --panel-strong: rgba(255, 249, 241, 0.96);
-  --lilac-panel: rgba(37, 86, 166, 0.96);
+  --lilac-panel: rgba(31, 90, 58, 0.96);
   --ink: #15222f;
   --muted: #576774;
   --line: rgba(21, 34, 47, 0.12);
@@ -23,9 +23,9 @@ body {
   font-family: "Segoe UI", "Trebuchet MS", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(255, 207, 86, 0.45), transparent 28%),
-    radial-gradient(circle at 90% 10%, rgba(18, 122, 105, 0.18), transparent 24%),
-    linear-gradient(145deg, #f6f1e6 0%, #efe3d1 52%, #ead7c0 100%);
+    radial-gradient(circle at top left, rgba(255, 207, 86, 0.24), transparent 28%),
+    radial-gradient(circle at 90% 10%, rgba(73, 139, 91, 0.34), transparent 24%),
+    linear-gradient(145deg, #0d2f20 0%, #16452e 52%, #1f5f3d 100%);
 }
 
 .page-shell {
@@ -46,7 +46,7 @@ body {
 .glow-one {
   width: 280px;
   height: 280px;
-  background: rgba(255, 122, 24, 0.14);
+  background: rgba(255, 196, 87, 0.15);
   top: 44px;
   right: -90px;
 }
@@ -54,7 +54,7 @@ body {
 .glow-two {
   width: 240px;
   height: 240px;
-  background: rgba(18, 122, 105, 0.12);
+  background: rgba(68, 131, 81, 0.24);
   bottom: 40px;
   left: -80px;
 }
@@ -219,7 +219,7 @@ h2 {
   font-weight: 800;
   box-shadow: 0 14px 28px rgba(50, 36, 19, 0.12);
   transition: transform 180ms ease, box-shadow 180ms ease;
-  touch-action: manipulation;
+  touch-action: none;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -976,13 +976,13 @@ h2 {
   }
 
   .letter-grid {
-    grid-template-columns: repeat(3, minmax(54px, 64px));
-    gap: 5px;
+    grid-template-columns: repeat(3, minmax(64px, 76px));
+    gap: 7px;
     width: auto;
   }
 
   .letter-tile {
-    font-size: 1.72rem;
+    font-size: 1.82rem;
     font-weight: 950;
     letter-spacing: 0.015em;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.48);
