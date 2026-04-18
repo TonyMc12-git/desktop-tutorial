@@ -41,24 +41,34 @@ These files are derived from the free SCOWL English Speller Database using Briti
 
 This is not the Oxford Dictionary. It is a fixed free British-English source list chosen because it is shippable and reproducible.
 
-## Run it
+## Use it on a phone
 
-For the easiest launch on Windows, double-click `play-game.vbs`.
+Nine Letters is a static PWA. It does not need your laptop to be running once it is deployed to a web host.
 
-That starts a local server and opens:
+This repo includes a GitHub Pages workflow at `.github/workflows/deploy-pages.yml`. When changes are pushed to `main`, GitHub Pages can publish the app at:
 
-- `http://localhost:8000/index.html`
-
-To open it on your phone over the same Wi-Fi, run:
-
-- `Play Nine Letters On Phone.bat`
-
-That serves the game on your laptop's local network address and prints the phone-friendly URL to use.
+- `https://tonymc12-git.github.io/desktop-tutorial/`
 
 Once the page opens on your phone:
 
 - on iPhone: use Safari and tap `Share > Add to Home Screen`
 - on Android: use Chrome and tap `Add to Home Screen` or `Install app`
+
+After the first successful load, the service worker caches the app shell and word list so it can continue to run like an installed app.
+
+## Local testing
+
+The local launch scripts are only for development on this machine. They start a tiny HTTP server because browsers block `fetch()` from directly reading local files opened with `file://`.
+
+For local testing on Windows, double-click `play-game.vbs`, which opens:
+
+- `http://localhost:8000/index.html`
+
+To test from a phone on the same Wi-Fi before deploying, run:
+
+- `Play Nine Letters On Phone.bat`
+
+That laptop-hosted URL is a preview tool, not the production way to share or install the game.
 
 ## Current puzzle
 

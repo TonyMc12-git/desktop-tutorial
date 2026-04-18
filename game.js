@@ -26,6 +26,9 @@ let currentPuzzle = {
 };
 
 const seenPuzzleStorageKey = `nine-letters:seen-puzzles:size${dictionaryTier}-preserved-v2`;
+const currentGameStorageKey = `nine-letters:current-game:size${dictionaryTier}-preserved-v2`;
+const closedGameStorageKey = `nine-letters:closed-game:size${dictionaryTier}-preserved-v2`;
+const gameSessionStorageKey = `nine-letters:session:size${dictionaryTier}-preserved-v2`;
 
 let sourceWordsCache = [];
 let letterInventory = buildLetterInventory(currentPuzzle.letters);
@@ -71,9 +74,11 @@ const state = {
   displayedLetters: buildShuffledBoardLetters(currentPuzzle.letters)
 };
 
+reconcileClosedGameSession();
 render();
 registerServiceWorker();
 init();
+window.addEventListener("beforeunload", markGameSessionClosed);
 
 submitButtonEl.addEventListener("click", submitWord);
 clearButtonEl.addEventListener("click", () => {
@@ -110,6 +115,20 @@ async function init() {
       .split(/\r?\n/)
       .map((word) => word.trim().toLowerCase())
       .filter(Boolean);
+
+    const savedGame = loadCurrentGame();
+    if (savedGame) {
+      try {
+        startPuzzle(savedGame.puzzle, {
+          resetProgress: false,
+          restoredGame: savedGame
+        });
+        return;
+      } catch {
+        window.localStorage.removeItem(currentGameStorageKey);
+      }
+    }
+
     const nextPuzzle = findNextUnseenPuzzle();
     if (!nextPuzzle) {
       throw new Error("Could not find a valid puzzle to load.");
@@ -256,33 +275,55 @@ function renderLetters(letters) {
 
     tile.addEventListener("pointerdown", (event) => {
       event.preventDefault();
+      tile.setPointerCapture?.(event.pointerId);
+      tile.classList.add("pressing");
     });
 
-    tile.addEventListener("click", () => {
-      if (state.isRevealed) {
-        setStatus("This game has ended. Tap New game for a fresh board.");
+    tile.addEventListener("pointerup", (event) => {
+      event.preventDefault();
+      tile.releasePointerCapture?.(event.pointerId);
+      tile.classList.remove("pressing");
+      selectLetterTile(index, letter);
+    });
+
+    tile.addEventListener("pointercancel", () => {
+      tile.classList.remove("pressing");
+    });
+
+    tile.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
         return;
       }
 
-      if (state.selectedTileIds.includes(index)) {
-        setStatus(`You already used that ${letter} tile.`);
-        return;
-      }
-
-      const nextValue = `${state.currentGuess}${letter}`.toUpperCase();
-      if (!canBuildWord(nextValue.toLowerCase(), letterInventory)) {
-        setStatus(`You only have one ${letter} tile to use.`);
-        return;
-      }
-
-      state.selectedTileIds.push(index);
-      state.currentGuess = nextValue;
-      renderCurrentGuess();
-      syncLetterButtonsFromGuess();
+      event.preventDefault();
+      selectLetterTile(index, letter);
     });
 
     letterGridEl.appendChild(tile);
   });
+}
+
+function selectLetterTile(index, letter) {
+  if (state.isRevealed) {
+    setStatus("This game has ended. Tap New game for a fresh board.");
+    return;
+  }
+
+  if (state.selectedTileIds.includes(index)) {
+    setStatus(`You already used that ${letter} tile.`);
+    return;
+  }
+
+  const nextValue = `${state.currentGuess}${letter}`.toUpperCase();
+  if (!canBuildWord(nextValue.toLowerCase(), letterInventory)) {
+    setStatus(`You only have one ${letter} tile to use.`);
+    return;
+  }
+
+  state.selectedTileIds.push(index);
+  state.currentGuess = nextValue;
+  renderCurrentGuess();
+  syncLetterButtonsFromGuess();
 }
 
 function renderMilestones() {
@@ -387,6 +428,7 @@ function finalizeCelebrationState(celebration) {
     state.currentGuess = "";
     state.selectedTileIds = [];
     state.isRevealed = true;
+    saveCurrentGame();
     renderCurrentGuess();
     syncLetterButtonsFromGuess();
     renderAcceptedWords();
@@ -606,6 +648,118 @@ function saveMissedWords() {
   window.localStorage.setItem(getMissStorageKey(), JSON.stringify(state.missedWords));
 }
 
+function reconcileClosedGameSession() {
+  try {
+    const hasActiveSession = window.sessionStorage.getItem(gameSessionStorageKey) === "1";
+    const wasClosed = window.localStorage.getItem(closedGameStorageKey) === "1";
+
+    if (wasClosed && !hasActiveSession) {
+      window.localStorage.removeItem(currentGameStorageKey);
+    }
+
+    window.localStorage.removeItem(closedGameStorageKey);
+    window.sessionStorage.setItem(gameSessionStorageKey, "1");
+  } catch {}
+}
+
+function markGameSessionClosed() {
+  try {
+    window.localStorage.setItem(closedGameStorageKey, "1");
+  } catch {}
+}
+
+function loadCurrentGame() {
+  try {
+    const savedGame = JSON.parse(window.localStorage.getItem(currentGameStorageKey) || "null");
+    if (!savedGame || savedGame.version !== 1) {
+      return null;
+    }
+
+    const puzzle = normalizeSavedPuzzle(savedGame.puzzle);
+    if (!puzzle) {
+      return null;
+    }
+
+    return {
+      puzzle,
+      displayedLetters: normalizeDisplayedLetters(savedGame.displayedLetters, puzzle),
+      isRevealed: Boolean(savedGame.isRevealed)
+    };
+  } catch {
+    return null;
+  }
+}
+
+function normalizeSavedPuzzle(puzzle) {
+  if (
+    !puzzle
+    || typeof puzzle.title !== "string"
+    || typeof puzzle.center !== "string"
+    || !Array.isArray(puzzle.letters)
+  ) {
+    return null;
+  }
+
+  const title = puzzle.title.toUpperCase();
+  const center = puzzle.center.toUpperCase();
+  const letters = puzzle.letters.map((letter) => String(letter).toUpperCase());
+
+  if (
+    !/^[A-Z]{9}$/.test(title)
+    || !/^[A-Z]$/.test(center)
+    || letters.length !== 9
+    || letters.some((letter) => !/^[A-Z]$/.test(letter))
+    || !letters.includes(center)
+  ) {
+    return null;
+  }
+
+  return {
+    title,
+    center,
+    letters,
+    sourcePath: sourceConfig[dictionaryTier].path,
+    sourceLabel: sourceConfig[dictionaryTier].label
+  };
+}
+
+function normalizeDisplayedLetters(displayedLetters, puzzleConfig) {
+  if (!Array.isArray(displayedLetters) || displayedLetters.length !== 9) {
+    return null;
+  }
+
+  const letters = displayedLetters.map((letter) => String(letter).toUpperCase());
+  if (letters.some((letter) => !/^[A-Z]$/.test(letter)) || letters[4] !== puzzleConfig.center) {
+    return null;
+  }
+
+  const savedInventory = buildLetterInventory(letters);
+  const puzzleInventory = buildLetterInventory(puzzleConfig.letters);
+  const puzzleKeys = Object.keys(puzzleInventory);
+
+  if (Object.keys(savedInventory).length !== puzzleKeys.length) {
+    return null;
+  }
+
+  const hasSameLetters = puzzleKeys.every((letter) => savedInventory[letter] === puzzleInventory[letter]);
+  return hasSameLetters ? letters : null;
+}
+
+function saveCurrentGame() {
+  const gameState = {
+    version: 1,
+    puzzle: {
+      title: currentPuzzle.title,
+      center: currentPuzzle.center,
+      letters: currentPuzzle.letters
+    },
+    displayedLetters: state.displayedLetters,
+    isRevealed: state.isRevealed
+  };
+
+  window.localStorage.setItem(currentGameStorageKey, JSON.stringify(gameState));
+}
+
 function handleRejectedWord(word, verdict) {
   if (!word) {
     return;
@@ -807,7 +961,7 @@ function getMissStorageKey() {
   return `${getStorageKey()}:misses`;
 }
 
-function startPuzzle(puzzleConfig, { resetProgress = true } = {}) {
+function startPuzzle(puzzleConfig, { resetProgress = true, restoredGame = null } = {}) {
   currentPuzzle = puzzleConfig;
   letterInventory = buildLetterInventory(currentPuzzle.letters);
   allowedLetters = new Set(Object.keys(letterInventory));
@@ -829,12 +983,13 @@ function startPuzzle(puzzleConfig, { resetProgress = true } = {}) {
   state.missedSet = new Set(state.missedWords);
   state.currentGuess = "";
   state.selectedTileIds = [];
-  state.isRevealed = false;
-  state.displayedLetters = buildShuffledBoardLetters(currentPuzzle.letters);
+  state.isRevealed = Boolean(restoredGame?.isRevealed);
+  state.displayedLetters = restoredGame?.displayedLetters || buildShuffledBoardLetters(currentPuzzle.letters);
   state.isReady = true;
   state.celebrationQueue = [];
   state.isCelebrationActive = false;
   rememberSeenPuzzle(currentPuzzle);
+  saveCurrentGame();
 
   celebrationBannerEl.className = "celebration-banner";
   render();
@@ -860,6 +1015,7 @@ function revealAllWords() {
   state.currentGuess = "";
   state.selectedTileIds = [];
   state.isRevealed = true;
+  saveCurrentGame();
   renderCurrentGuess();
   syncLetterButtonsFromGuess();
   renderAcceptedWords();
