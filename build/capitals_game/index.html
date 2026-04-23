@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capitals Game</title>
+  <meta name="theme-color" content="#16324f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Capitals Game">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+  <link rel="stylesheet" href="styles.css?v=20260423-capitals1">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="game-panel" aria-live="polite">
+      <header class="top-bar">
+        <div class="title-block">
+          <h1>Capitals Game</h1>
+          <p class="subtitle">Tap the capital city for the country shown below.</p>
+        </div>
+        <div class="player-stats" aria-label="Game stats">
+          <span><em>Pts</em> <strong id="points-score">0</strong></span>
+          <span><em>Time</em> <strong id="round-timer">000.0s</strong></span>
+          <span><em>Best</em> <strong id="high-score">0</strong></span>
+          <button class="top-button" id="new-game-button" type="button">New game</button>
+        </div>
+      </header>
+
+      <section class="prompt-panel">
+        <span class="prompt-kicker">Country</span>
+        <strong class="prompt-country" id="prompt-country">Loading...</strong>
+        <p class="prompt-copy" id="prompt-copy">Choices mix nearby capitals or major cities with cities from inside the country.</p>
+      </section>
+
+      <section class="score-row">
+        <div class="score-card">
+          <span class="score-label">Score</span>
+          <strong id="score">0 / 0</strong>
+          <span class="score-context" id="score-context">of 0 curated countries</span>
+        </div>
+      </section>
+
+      <section class="options-grid" id="options-grid" aria-label="City choices"></section>
+    </section>
+  </main>
+
+  <div class="celebration" id="celebration" aria-live="assertive" aria-hidden="true">
+    <div class="celebration-card">
+      <span class="celebration-kicker" id="celebration-kicker"></span>
+      <strong class="celebration-title" id="celebration-title"></strong>
+      <span class="celebration-copy" id="celebration-copy"></span>
+      <button class="celebration-button" id="celebration-button" type="button">Next</button>
+    </div>
+  </div>
+
+  <div class="bonus-toast" id="bonus-toast" aria-live="assertive" aria-hidden="true"></div>
+
+  <script src="app.js?v=20260423-capitals1"></script>
+</body>
+</html>
