@@ -32,22 +32,6 @@ jobs:
         run: |
           mkdir -p _site
           cp -R index.html game.js styles.css manifest.webmanifest sw.js icons data README.md size60-minus-size50-current.txt _site/
-          mkdir -p _site/french_game
-          cp -R build/french_game/. _site/french_game/
-          mkdir -p _site/french_game/icons
-          cp -R icons/. _site/french_game/icons/
-          mkdir -p _site/french-game
-          cp -R build/french_game/. _site/french-game/
-          mkdir -p _site/french-game/icons
-          cp -R icons/. _site/french-game/icons/
-          mkdir -p _site/capitals_game
-          cp -R build/capitals_game/. _site/capitals_game/
-          mkdir -p _site/capitals_game/icons
-          cp -R icons/. _site/capitals_game/icons/
-          mkdir -p _site/capitals-game
-          cp -R build/capitals_game/. _site/capitals-game/
-          mkdir -p _site/capitals-game/icons
-          cp -R icons/. _site/capitals-game/icons/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
