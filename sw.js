@@ -45,6 +45,15 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  if (
+    requestUrl.pathname.includes("/french_game/") ||
+    requestUrl.pathname.includes("/french-game/") ||
+    requestUrl.pathname.includes("/capitals_game/") ||
+    requestUrl.pathname.includes("/capitals-game/")
+  ) {
+    return;
+  }
+
   if (event.request.mode === "navigate") {
     event.respondWith(
       fetch(event.request).catch(() => caches.match("./index.html"))
