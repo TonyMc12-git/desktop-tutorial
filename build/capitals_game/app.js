@@ -1,4 +1,4 @@
-const APP_VERSION = "20260423-capitals1";
+const APP_VERSION = "20260423-capitals2";
 const HIGH_SCORE_KEY = "capitalsGameHighScore";
 
 const rounds = [
@@ -250,11 +250,7 @@ const rounds = [
   }
 ];
 
-const globalFallbackCities = [...new Set(rounds.flatMap((round) => [
-  round.capital,
-  ...round.nearbyCities,
-  ...round.domesticCities
-]))];
+const globalFallbackCities = buildCityPool(rounds);
 
 const promptCountryEl = document.getElementById("prompt-country");
 const promptCopyEl = document.getElementById("prompt-copy");
@@ -366,10 +362,7 @@ function renderOptions(options) {
     button.type = "button";
     button.className = "option-button";
     button.textContent = city;
-    button.addEventListener("pointerdown", () => button.classList.add("pressing"));
-    button.addEventListener("pointerup", () => button.classList.remove("pressing"));
-    button.addEventListener("pointercancel", () => button.classList.remove("pressing"));
-    button.addEventListener("click", () => chooseCity(city, button));
+    bindTap(button, () => chooseCity(city, button));
     optionsGridEl.appendChild(button);
   });
 }
@@ -567,5 +560,38 @@ function registerServiceWorker() {
 
   window.addEventListener("load", () => {
     navigator.serviceWorker.register(`./sw.js?v=${APP_VERSION}`).catch(() => {});
+  });
+}
+
+function buildCityPool(roundList) {
+  const uniqueCities = new Set();
+  roundList.forEach((round) => {
+    uniqueCities.add(round.capital);
+    round.nearbyCities.forEach((city) => uniqueCities.add(city));
+    round.domesticCities.forEach((city) => uniqueCities.add(city));
+  });
+  return [...uniqueCities];
+}
+
+function bindTap(button, onTap) {
+  let touchHandledAt = 0;
+
+  button.addEventListener("pointerdown", () => button.classList.add("pressing"));
+  button.addEventListener("pointerup", () => button.classList.remove("pressing"));
+  button.addEventListener("pointercancel", () => button.classList.remove("pressing"));
+
+  button.addEventListener("touchstart", () => button.classList.add("pressing"), { passive: true });
+  button.addEventListener("touchend", () => {
+    button.classList.remove("pressing");
+    touchHandledAt = Date.now();
+    onTap();
+  }, { passive: true });
+  button.addEventListener("touchcancel", () => button.classList.remove("pressing"), { passive: true });
+
+  button.addEventListener("click", () => {
+    if (Date.now() - touchHandledAt < 700) {
+      return;
+    }
+    onTap();
   });
 }

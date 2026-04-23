@@ -30,6 +30,8 @@ body {
 
 button {
   font: inherit;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app-shell {
@@ -189,6 +191,7 @@ h1 {
   line-height: 1.08;
   box-shadow: 0 10px 22px rgba(4, 21, 37, 0.08);
   cursor: pointer;
+  user-select: none;
 }
 
 .option-button:active,

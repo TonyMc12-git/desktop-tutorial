@@ -1,11 +1,11 @@
-const CACHE_NAME = "french-game-pwa-v1";
-const APP_VERSION = "20260423-french1";
+const CACHE_NAME = "french-game-pwa-v2";
+const APP_VERSION = "20260423-french2";
 
 const APP_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=20260423-french1",
-  "./app.js?v=20260423-french1",
+  "./styles.css?v=20260423-french2",
+  "./app.js?v=20260423-french2",
   "./manifest.webmanifest",
   "./icons/icon.svg",
   "./icons/icon-maskable.svg"

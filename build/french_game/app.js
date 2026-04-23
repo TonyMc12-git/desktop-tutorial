@@ -1,4 +1,4 @@
-const APP_VERSION = "20260423-french1";
+const APP_VERSION = "20260423-french2";
 const HIGH_SCORE_KEY = "frenchGameHighScore";
 
 const rounds = [
@@ -94,7 +94,7 @@ const rounds = [
   { prompt: "je peux entrer", answers: ["may i come in"] }
 ];
 
-const translationPool = [...new Set(rounds.flatMap((round) => round.answers))];
+const translationPool = buildTranslationPool(rounds);
 
 const promptTextEl = document.getElementById("prompt-text");
 const promptCopyEl = document.getElementById("prompt-copy");
@@ -210,10 +210,7 @@ function renderOptions() {
     button.type = "button";
     button.className = "option-button";
     button.textContent = translation;
-    button.addEventListener("pointerdown", () => button.classList.add("pressing"));
-    button.addEventListener("pointerup", () => button.classList.remove("pressing"));
-    button.addEventListener("pointercancel", () => button.classList.remove("pressing"));
-    button.addEventListener("click", () => toggleSelection(translation, button));
+    bindTap(button, () => toggleSelection(translation, button));
     optionsGridEl.appendChild(button);
   });
 }
@@ -460,5 +457,36 @@ function registerServiceWorker() {
 
   window.addEventListener("load", () => {
     navigator.serviceWorker.register(`./sw.js?v=${APP_VERSION}`).catch(() => {});
+  });
+}
+
+function buildTranslationPool(roundList) {
+  const uniqueAnswers = new Set();
+  roundList.forEach((round) => {
+    round.answers.forEach((answer) => uniqueAnswers.add(answer));
+  });
+  return [...uniqueAnswers];
+}
+
+function bindTap(button, onTap) {
+  let touchHandledAt = 0;
+
+  button.addEventListener("pointerdown", () => button.classList.add("pressing"));
+  button.addEventListener("pointerup", () => button.classList.remove("pressing"));
+  button.addEventListener("pointercancel", () => button.classList.remove("pressing"));
+
+  button.addEventListener("touchstart", () => button.classList.add("pressing"), { passive: true });
+  button.addEventListener("touchend", () => {
+    button.classList.remove("pressing");
+    touchHandledAt = Date.now();
+    onTap();
+  }, { passive: true });
+  button.addEventListener("touchcancel", () => button.classList.remove("pressing"), { passive: true });
+
+  button.addEventListener("click", () => {
+    if (Date.now() - touchHandledAt < 700) {
+      return;
+    }
+    onTap();
   });
 }
