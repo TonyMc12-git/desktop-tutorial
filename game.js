@@ -390,6 +390,7 @@ function renderActionButtons() {
   clearButtonEl.disabled = disabled || !state.currentGuess;
   submitButtonEl.disabled = disabled || !state.currentGuess;
   giveUpButtonEl.disabled = disabled;
+  newGameButtonEl.disabled = disabled || Boolean(state.currentGuess);
 }
 
 function unlockMilestones() {
@@ -1024,7 +1025,7 @@ function revealAllWords() {
 }
 
 function startNewGame() {
-  if (!state.isReady || sourceWordsCache.length === 0) {
+  if (!state.isReady || sourceWordsCache.length === 0 || state.currentGuess) {
     return;
   }
 
